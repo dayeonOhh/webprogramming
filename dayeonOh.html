@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오다연 홈페이지</title>
+  <meta name="description" content="강원대학교 컴퓨터공학과 오다연의 개인 홈페이지. 자기소개, 나의 미래, SNS 계정 소개 등 다양한 정보를 제공합니다.">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <style>
+    body {
+      background-color: #f5f5f7;
+      color: #333;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      padding-top: 60px;
+      scroll-behavior: smooth;
+    }
+    
+    .top-left-link {
+      position: fixed;
+      top: 18px;
+      left: 30px;
+      text-decoration: none;
+      font-size: 40px;
+      font-weight: bold;
+      color: #4A47A3;
+      transition: color 0.5s;
+    }
+    
+    .top-left-link:hover {
+      color: #333399;
+    }
+    
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+      z-index: 1000;
+    }
+    
+    nav:hover {
+      background: linear-gradient(45deg, #2575fc 0%, #6a11cb 100%);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+    }
+    
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+    
+    nav ul li {
+      margin-left: 20px;
+      position: relative;
+    }
+    
+    nav ul li:first-child {
+      margin-left: 0;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    
+    nav ul li a::before {
+      content: attr(data-icon);
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      margin-right: 8px;
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    
+    nav ul li a:hover::before {
+      transform: rotate(360deg);
+    }
+    
+    nav ul li a:active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+       
+    section {
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 800px;
+      transition: opacity 0.5s;
+    }
+    
+    .profile-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .profile-card {
+      background-color: #fff;
+      color: black;
+      border-radius: 10px;
+      padding: 20px;
+      display: inline-block;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      margin-right: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .profile-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .profile-card img {
+      border-radius: 10px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: border-color 0.3s;
+    }
+    
+    .personal-info {
+      margin-top: 15px;
+      text-align: left;
+    }
+    
+    .personal-info p {
+      margin: 5px 0;
+    }
+    
+    .personal-info p span {
+      font-weight: bold;
+      color: #4A47A3;
+    }
+    
+    .intro-text {
+      max-width: 400px;
+    }
+    
+    p {
+      margin-bottom: 20px;
+    }
+    
+    .categorize {
+      color: #4A47A3;
+      font-size: 15px;
+      display: block;
+      margin-top: 10px;
+      transition: color 0.3s;
+    }
+    
+    .categorize:hover {
+      color: #333399;
+    }
+    
+    .future-content, .sns-content {
+      animation: fadeIn 1s ease-in-out;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+      color: #333;
+    }
+    
+    .future-content h2, .sns-content h2 {
+      color: #4A47A3;
+      margin-bottom: 15px;
+    }
+    
+    .sns-content a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #4A47A3;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #e0e0e0;
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    
+    .sns-content a:hover {
+      background-color: #4A47A3;
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    footer {
+      background-color: #6b68b5;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      bottom: 0;
+      width: 100%; /* 화면의 가로폭 전체를 차지하도록 변경 */
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    }
+    footer p {
+      margin: 5px 0;
+    }
+    
+    @media (max-width: 900px) {
+      .profile-container {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+      }
+      .profile-card {
+        margin: 0 0 20px 0;
+      }
+      .intro-text {
+        max-width: 100%;
+      }
+      
+      .top-left-link {
+        font-size: 30px;
+        top: 10px;
+        left: 10px;
+      }
+      
+      nav {
+        flex-direction: column;
+        top: 10px; /* Top padding to avoid overlapping */
+        right: 10px;
+        left: auto;
+        width: auto;
+        box-shadow: none;
+        background: rgba(106, 17, 203, 0.8); /* Add some transparency */
+      }
+      
+      nav ul {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      
+      nav ul li {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+      
+      nav ul li:first-child {
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="C:/Users/PC/OneDrive/바탕%20화면/dayeonOh.html" class="top-left-link" style="z-index: 1001;">Dayeon Oh</a>
+  
+  <nav>
+    <ul>
+      <li><a href="#" data-icon="&#xf015;" onclick="loadContent('intro')">introduce</a></li>
+      <li><a href="#" data-icon="&#xf0f2;" onclick="loadContent('future')">my future</a></li>
+      <li><a href="#" data-icon="&#xf0e1;" onclick="loadContent('sns')">sns</a></li>
+    </ul>
+  </nav>
+
+  <section id="content">
+    <div id="intro" class="profile-container">
+      <div class="profile-card">
+        <img src="C:\컴공 2학년1학기\웹프로그래밍\웹프 프로젝트\KakaoTalk_20240527_230514429.jpg" alt="나의 사진">
+        <div class="personal-info">
+          <p><span>Name:</span> 오다연</p>
+          <p><span>Age:</span> 22살</p>
+          <p><span>Major:</span> 강원대학교 컴퓨터공학과 2학년</p>
+        </div>
+      </div>
+      <div class="intro-text">
+        <p>안녕하세요! 저는 강원대학교 컴퓨터공학과에 재학 중인 오다연입니다.</p>
+              <p>현재 IT대학 단과대 학생회에서 홍보국장을 맡고 있습니다. 홍보국은 IT대학 행사의 모든 카드뉴스와 홍보물을 만들고 업로드 하는 역할을 맡고 있습니다.</p>
+              <p>저는 춤추는 것을 좋아하여 대학교 입학 후 춤동아리에 가입하였습니다. 작년에는 벚꽃 버스킹에 참가하여 올드스쿨 장르의 춤을 선보였었습니다!
+                <a href="https://youtu.be/zxwoiHrbSss?si=L9nm5O1aqi2cGJMC" class="categorize" style="text-decoration: underline; color: rgb(231, 140, 249); transition: color 0.3s;">공연영상</a></p>
+              <p>매운 음식 먹는 것을 너무 좋아하여 집에는 항상 불닭 소스가 종류별로 구비되어있습니다. 모든 음식에 청양고추를 넣어 먹고 라면에는 꼭 후추를 뿌려먹는 습관이 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 오다연. All rights reserved.</p>
+    <p><a href="mailto:your.sksmsqhrejdd@naver.com" style="color: #ffcad4; text-decoration: none;">Dayeon Email</a></p>
+  </footer>
+
+  <script>
+    function loadContent(page) {
+      let content = document.getElementById('content');
+
+      if (page === 'intro') {
+        content.innerHTML = `
+          <div id="intro" class="profile-container">
+            <div class="profile-card">
+              <img src="C:\\컴공 2학년1학기\\웹프로그래밍\\웹프 프로젝트\\KakaoTalk_20240527_230514429.jpg" alt="나의 사진">
+              <div class="personal-info">
+                <p><span>Name:</span> 오다연</p>
+                <p><span>Age:</span> 22살</p>
+                <p><span>Major:</span> 강원대학교 컴퓨터공학과 2학년</p>
+              </div>
+            </div>
+            <div class="intro-text">
+              <p>안녕하세요! 저는 강원대학교 컴퓨터공학과에 재학 중인 오다연입니다.</p>
+              <p>현재 IT대학 단과대 학생회에서 홍보국장을 맡고 있습니다. 홍보국은 IT대학 행사의 모든 카드뉴스와 홍보물을 만들고 업로드 하는 역할을 맡고 있습니다.</p>
+              <p>저는 춤추는 것을 좋아하여 대학교 입학 후 춤동아리에 가입하였습니다. 작년에는 벚꽃 버스킹에 참가하여 올드스쿨 장르의 춤을 선보였었습니다!
+                <a href="https://youtu.be/zxwoiHrbSss?si=L9nm5O1aqi2cGJMC" class="categorize" style="text-decoration: underline; color: rgb(231, 140, 249); transition: color 0.3s;">공연영상</a></p>
+              <p>매운 음식 먹는 것을 너무 좋아하여 집에는 항상 불닭 소스가 종류별로 구비되어있습니다. 모든 음식에 청양고추를 넣어 먹고 라면에는 꼭 후추를 뿌려먹는 습관이 있습니다.</p>
+            </div>
+          </div>
+        `;
+      } else if (page === 'future') {
+        content.innerHTML = `
+          <div class="future-content">
+            <h2>나의 미래</h2>
+            <p>저는 빅데이터 분야에 관심을 가지고 있으며, 앞으로 이 분야에 대해 더 공부해보고 싶습니다. 빅데이터는 현재 그리고 나아가 미래에서 매우 중요한 영역이므로 현대 사회의 다양한 문제를 해결하는 데 중요한 역할을 할 것이라고 생각합니다.</p>
+            <p>저는 컴퓨터공학을 전공하며 데이터 분석, 데이터 마이닝, 통계 등의 기초를 탄탄히 다져가고 싶습니다. 앞으로는 이러한 기초를 바탕으로 더욱 심화된 빅데이터 기술을 학습하고, 실제 프로젝트를 통해 실무 경험을 쌓으려고 합니다.</p>
+            <p>저는 제가 이루고 싶은 바를 위해 앞으로 끊임없이 노력하고 도전할 것입니다.</p>
+          </div>
+        `;
+      } else if (page === 'sns') {
+        content.innerHTML = `
+          <div class="sns-content">
+            <h2>SNS 계정 소개</h2>
+            <p>저의 다양한 활동을 아래 SNS 계정에서 확인하실 수 있습니다</p>
+            <a href="https://blog.naver.com/sksmsqhrejdd" class="categorize">Naver Blog</a>
+            <a href="https://www.instagram.com/dayeon_5da/" class="categorize">Instagram</a>
+            <a href="https://www.youtube.com/channel/UC3uLiT7qahxiE3qQ-S10WtQ" class="categorize">YouTube</a>
+          </div>
+        `;
+      }
+
+      // Apply fade-in animation to the content
+      content.style.opacity = 0;
+      setTimeout(() => {
+        content.style.opacity = 1;
+      }, 0);
+    }
+  </script>
+</body>
+</html>
